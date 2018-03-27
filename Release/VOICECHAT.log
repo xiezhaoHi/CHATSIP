@@ -1,0 +1,87 @@
+﻿  stdafx.cpp
+D:\2015\VC\atlmfc\include\afx.h(38): warning C4996: 'MBCS_Support_Deprecated_In_MFC': MBCS support in MFC is deprecated and may be removed in a future version of MFC.
+  D:\2015\VC\atlmfc\include\afx.h(33): note: 参见“MBCS_Support_Deprecated_In_MFC”的声明
+C:\Program Files (x86)\Windows Kits\8.1\Include\um\winuser.rh(19): warning C4005: “RT_MANIFEST”: 宏重定义
+  C:\Program Files (x86)\Windows Kits\8.1\Include\um\winuser.h(253): note: 参见“RT_MANIFEST”的前一个定义
+C:\Program Files (x86)\Windows Kits\8.1\Include\um\winuser.rh(20): warning C4005: “CREATEPROCESS_MANIFEST_RESOURCE_ID”: 宏重定义
+  C:\Program Files (x86)\Windows Kits\8.1\Include\um\winuser.h(254): note: 参见“CREATEPROCESS_MANIFEST_RESOURCE_ID”的前一个定义
+C:\Program Files (x86)\Windows Kits\8.1\Include\um\winuser.rh(21): warning C4005: “ISOLATIONAWARE_MANIFEST_RESOURCE_ID”: 宏重定义
+  C:\Program Files (x86)\Windows Kits\8.1\Include\um\winuser.h(255): note: 参见“ISOLATIONAWARE_MANIFEST_RESOURCE_ID”的前一个定义
+C:\Program Files (x86)\Windows Kits\8.1\Include\um\winuser.rh(22): warning C4005: “ISOLATIONAWARE_NOSTATICIMPORT_MANIFEST_RESOURCE_ID”: 宏重定义
+  C:\Program Files (x86)\Windows Kits\8.1\Include\um\winuser.h(256): note: 参见“ISOLATIONAWARE_NOSTATICIMPORT_MANIFEST_RESOURCE_ID”的前一个定义
+C:\Program Files (x86)\Windows Kits\8.1\Include\um\winuser.rh(23): warning C4005: “MINIMUM_RESERVED_MANIFEST_RESOURCE_ID”: 宏重定义
+  C:\Program Files (x86)\Windows Kits\8.1\Include\um\winuser.h(257): note: 参见“MINIMUM_RESERVED_MANIFEST_RESOURCE_ID”的前一个定义
+C:\Program Files (x86)\Windows Kits\8.1\Include\um\winuser.rh(24): warning C4005: “MAXIMUM_RESERVED_MANIFEST_RESOURCE_ID”: 宏重定义
+  C:\Program Files (x86)\Windows Kits\8.1\Include\um\winuser.h(258): note: 参见“MAXIMUM_RESERVED_MANIFEST_RESOURCE_ID”的前一个定义
+  LogRecord.cpp
+D:\2015\VC\atlmfc\include\afx.h(38): warning C4996: 'MBCS_Support_Deprecated_In_MFC': MBCS support in MFC is deprecated and may be removed in a future version of MFC.
+  D:\2015\VC\atlmfc\include\afx.h(33): note: 参见“MBCS_Support_Deprecated_In_MFC”的声明
+C:\Program Files (x86)\Windows Kits\8.1\Include\um\winuser.rh(19): warning C4005: “RT_MANIFEST”: 宏重定义
+  C:\Program Files (x86)\Windows Kits\8.1\Include\um\winuser.h(253): note: 参见“RT_MANIFEST”的前一个定义
+C:\Program Files (x86)\Windows Kits\8.1\Include\um\winuser.rh(20): warning C4005: “CREATEPROCESS_MANIFEST_RESOURCE_ID”: 宏重定义
+  C:\Program Files (x86)\Windows Kits\8.1\Include\um\winuser.h(254): note: 参见“CREATEPROCESS_MANIFEST_RESOURCE_ID”的前一个定义
+C:\Program Files (x86)\Windows Kits\8.1\Include\um\winuser.rh(21): warning C4005: “ISOLATIONAWARE_MANIFEST_RESOURCE_ID”: 宏重定义
+  C:\Program Files (x86)\Windows Kits\8.1\Include\um\winuser.h(255): note: 参见“ISOLATIONAWARE_MANIFEST_RESOURCE_ID”的前一个定义
+C:\Program Files (x86)\Windows Kits\8.1\Include\um\winuser.rh(22): warning C4005: “ISOLATIONAWARE_NOSTATICIMPORT_MANIFEST_RESOURCE_ID”: 宏重定义
+  C:\Program Files (x86)\Windows Kits\8.1\Include\um\winuser.h(256): note: 参见“ISOLATIONAWARE_NOSTATICIMPORT_MANIFEST_RESOURCE_ID”的前一个定义
+C:\Program Files (x86)\Windows Kits\8.1\Include\um\winuser.rh(23): warning C4005: “MINIMUM_RESERVED_MANIFEST_RESOURCE_ID”: 宏重定义
+  C:\Program Files (x86)\Windows Kits\8.1\Include\um\winuser.h(257): note: 参见“MINIMUM_RESERVED_MANIFEST_RESOURCE_ID”的前一个定义
+C:\Program Files (x86)\Windows Kits\8.1\Include\um\winuser.rh(24): warning C4005: “MAXIMUM_RESERVED_MANIFEST_RESOURCE_ID”: 宏重定义
+  C:\Program Files (x86)\Windows Kits\8.1\Include\um\winuser.h(258): note: 参见“MAXIMUM_RESERVED_MANIFEST_RESOURCE_ID”的前一个定义
+  MyDataBase.cpp
+MyDataBase.cpp(108): warning C4244: “初始化”: 从“my_ulonglong”转换到“int”，可能丢失数据
+  VOICECHAT.cpp
+C:\Program Files (x86)\Windows Kits\8.1\Include\um\imagehlp.h(1873): warning C4091: “typedef ”: 没有声明变量时忽略“”的左侧
+C:\Program Files (x86)\Windows Kits\8.1\Include\um\imagehlp.h(3519): warning C4091: “typedef ”: 没有声明变量时忽略“”的左侧
+  VOICECHATDlg.cpp
+VOICECHATDlg.cpp(37): warning C4068: 未知的杂注
+VOICECHATDlg.cpp(212): warning C4996: 'LCSipTransports': 被声明为已否决
+  D:\Qt_project\voice_chat\linphone-desktop\OUTPUT\desktop\include\linphone/types.h(1035): note: 参见“LCSipTransports”的声明
+VOICECHATDlg.cpp(165): warning C4996: 'linphone_proxy_config_new': 被声明为已否决
+  D:\Qt_project\voice_chat\linphone-desktop\OUTPUT\desktop\include\linphone/proxy_config.h(38): note: 参见“linphone_proxy_config_new”的声明
+VOICECHATDlg.cpp(177): warning C4996: 'linphone_proxy_config_set_identity': 被声明为已否决
+  D:\Qt_project\voice_chat\linphone-desktop\OUTPUT\desktop\include\linphone/proxy_config.h(81): note: 参见“linphone_proxy_config_set_identity”的声明
+VOICECHATDlg.cpp(244): warning C4101: “my_friend”: 未引用的局部变量
+VOICECHATDlg.cpp(313): warning C4800: “bool_t”: 将值强制为布尔值“true”或“false”(性能警告)
+VOICECHATDlg.cpp(314): warning C4800: “bool_t”: 将值强制为布尔值“true”或“false”(性能警告)
+VOICECHATDlg.cpp(310): warning C4996: 'linphone_core_get_video_policy': 被声明为已否决
+  D:\Qt_project\voice_chat\linphone-desktop\OUTPUT\desktop\include\linphone/core.h(3355): note: 参见“linphone_core_get_video_policy”的声明
+VOICECHATDlg.cpp(317): warning C4996: 'linphone_core_defer_call_update': 被声明为已否决
+  D:\Qt_project\voice_chat\linphone-desktop\OUTPUT\desktop\include\linphone/core.h(1335): note: 参见“linphone_core_defer_call_update”的声明
+VOICECHATDlg.cpp(337): warning C4996: 'linphone_core_terminate_call': 被声明为已否决
+  D:\Qt_project\voice_chat\linphone-desktop\OUTPUT\desktop\include\linphone/core.h(1227): note: 参见“linphone_core_terminate_call”的声明
+VOICECHATDlg.cpp(407): warning C4996: 'linphone_core_set_video_policy': 被声明为已否决
+  D:\Qt_project\voice_chat\linphone-desktop\OUTPUT\desktop\include\linphone/core.h(3345): note: 参见“linphone_core_set_video_policy”的声明
+VOICECHATDlg.cpp(454): warning C4996: 'linphone_core_accept_call_with_params': 被声明为已否决
+  D:\Qt_project\voice_chat\linphone-desktop\OUTPUT\desktop\include\linphone/core.h(1188): note: 参见“linphone_core_accept_call_with_params”的声明
+VOICECHATDlg.cpp(523): warning C4996: 'linphone_friend_get_status': 被声明为已否决
+  D:\Qt_project\voice_chat\linphone-desktop\OUTPUT\desktop\include\linphone/friend.h(199): note: 参见“linphone_friend_get_status”的声明
+VOICECHATDlg.cpp(567): warning C4996: 'linphone_core_get_audio_codecs': 被声明为已否决
+  D:\Qt_project\voice_chat\linphone-desktop\OUTPUT\desktop\include\linphone/core.h(1719): note: 参见“linphone_core_get_audio_codecs”的声明
+VOICECHATDlg.cpp(577): warning C4996: 'linphone_core_enable_payload_type': 被声明为已否决
+  D:\Qt_project\voice_chat\linphone-desktop\OUTPUT\desktop\include\linphone/core.h(1914): note: 参见“linphone_core_enable_payload_type”的声明
+VOICECHATDlg.cpp(591): warning C4996: 'linphone_core_enable_payload_type': 被声明为已否决
+  D:\Qt_project\voice_chat\linphone-desktop\OUTPUT\desktop\include\linphone/core.h(1914): note: 参见“linphone_core_enable_payload_type”的声明
+VOICECHATDlg.cpp(855): warning C4996: 'linphone_core_get_friend_by_address': 被声明为已否决
+  D:\Qt_project\voice_chat\linphone-desktop\OUTPUT\desktop\include\linphone/core.h(5175): note: 参见“linphone_core_get_friend_by_address”的声明
+VOICECHATDlg.cpp(866): warning C4996: 'linphone_friend_get_status': 被声明为已否决
+  D:\Qt_project\voice_chat\linphone-desktop\OUTPUT\desktop\include\linphone/friend.h(199): note: 参见“linphone_friend_get_status”的声明
+VOICECHATDlg.cpp(869): warning C4996: 'linphone_friend_get_status': 被声明为已否决
+  D:\Qt_project\voice_chat\linphone-desktop\OUTPUT\desktop\include\linphone/friend.h(199): note: 参见“linphone_friend_get_status”的声明
+VOICECHATDlg.cpp(826): warning C4101: “name”: 未引用的局部变量
+VOICECHATDlg.cpp(1191): warning C4996: '_LinphoneCoreVTable::auth_info_requested': 被声明为已否决
+  D:\Qt_project\voice_chat\linphone-desktop\OUTPUT\desktop\include\linphone/core.h(187): note: 参见“_LinphoneCoreVTable::auth_info_requested”的声明
+VOICECHATDlg.cpp(1197): warning C4996: 'linphone_core_new': 被声明为已否决
+  D:\Qt_project\voice_chat\linphone-desktop\OUTPUT\desktop\include\linphone/core.h(923): note: 参见“linphone_core_new”的声明
+VOICECHATDlg.cpp(1338): warning C4996: 'linphone_core_get_friend_by_address': 被声明为已否决
+  D:\Qt_project\voice_chat\linphone-desktop\OUTPUT\desktop\include\linphone/core.h(5175): note: 参见“linphone_core_get_friend_by_address”的声明
+VOICECHATDlg.cpp(1310): warning C4101: “name”: 未引用的局部变量
+VOICECHATDlg.cpp(1361): warning C4996: 'linphone_core_terminate_call': 被声明为已否决
+  D:\Qt_project\voice_chat\linphone-desktop\OUTPUT\desktop\include\linphone/core.h(1227): note: 参见“linphone_core_terminate_call”的声明
+  正在生成代码
+  5 of 771 functions ( 0.6%) were compiled, the rest were copied from previous compilation.
+    0 functions were new in current compilation
+    1 functions had inline decision re-evaluated but remain unchanged
+  已完成代码的生成
+  VOICECHAT.vcxproj -> D:\Qt_project\voice_chat\freeswitch_linephone\linphone_voice_chat\VOICECHAT\Release\VOICECHAT.exe
+  VOICECHAT.vcxproj -> D:\Qt_project\voice_chat\freeswitch_linephone\linphone_voice_chat\VOICECHAT\Release\VOICECHAT.pdb (Full PDB)
