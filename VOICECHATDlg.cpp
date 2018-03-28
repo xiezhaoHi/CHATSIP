@@ -29,10 +29,7 @@
 #include <string>
 #include <vector>
 using namespace std;
-static bool_t running = TRUE;
-static void stop(int signum) {
-	running = FALSE;
-}
+
 static LinphoneCore* g_lc;
 #pragma wanning(disable:4996)
 
@@ -76,8 +73,9 @@ static void sendMSGToWnd(CString strMSG)
 		copyData.dwData = 1;
 		copyData.lpData = strMSG.GetBuffer();
 		copyData.cbData = strMSG.GetLength()+1;
-
-		::SendMessage(hWnd, WM_COPYDATA, (WPARAM)gHwnd, (LPARAM)&copyData);
+		DWORD  ret;
+		::SendMessageTimeout(hWnd, WM_COPYDATA, (WPARAM)gHwnd, (LPARAM)&copyData
+			, SMTO_NORMAL,100,&ret);
 
 	}
 }
@@ -142,7 +140,7 @@ static void linphone_auth_info_requested(LinphoneCore *lc, const char *realm, co
 	// 	gtk_entry_set_text(GTK_ENTRY(linphone_get_widget(w,"userid_entry")),username);
 	info = linphone_auth_info_new(username, username, NULL, NULL, realm, domain);
 
-	linphone_auth_info_set_passwd(info, "1234");
+	linphone_auth_info_set_passwd(info, "xiezhao");
 	linphone_auth_info_set_userid(info, username);
 	linphone_core_add_auth_info(lc, info);
 
@@ -272,6 +270,7 @@ static void linphone_registration_state_changed(LinphoneCore *lc, LinphoneProxyC
 	default:
 		break;
 	}
+	CLogRecord::WriteRecordToFile(strMsg);
 	//update_registration_status(cfg, rs);
 }
 
@@ -298,12 +297,15 @@ void linphone_in_call_view_set_in_call(LinphoneCall *call) {
 
 	gLastValue = 1.0; //初始化
 	g_newCall = call;
+	float speakerGain = linphone_call_get_speaker_volume_gain(call);
+	float playGain = linphone_call_get_microphone_volume_gain(call);
+	CString strLog;
+	strLog.Format("语音通话,发送方音量增益[%f],接受方音量增益[%f]", speakerGain, playGain);
+	CLogRecord::WriteRecordToFile(strLog);
 	//设置音量
 	linphone_call_set_speaker_volume_gain(call, (float)gVolum);
 
 	linphone_call_set_microphone_volume_gain(call, (float)gVolum);
-
-
 }
 static void linphone_call_updated_by_remote(LinphoneCall *call) {
 	LinphoneCore *lc = linphone_call_get_core(call);
@@ -478,6 +480,7 @@ static void linphone_call_state_changed(LinphoneCore *lc, LinphoneCall *call, Li
 	default:
 		break;
 	}
+	CLogRecord::WriteRecordToFile(strMsg);
 	// 	linphone_notify(call, NULL, msg);
 	// 	linphone_update_call_buttons(call);
 }
@@ -557,6 +560,39 @@ static void new_subscription_requested(LinphoneCore *lc, LinphoneFriend *myfrien
 	linphone_core_add_friend(lc, myfriend); /* add this new friend to the buddy list*/
 }// 用于应用程序“关于”菜单项的 CAboutDlg 对话框
 
+//通话中 状态 回调函数
+static void	linphoneCallStatusUpdate(LinphoneCore *lc, LinphoneCall *call, const LinphoneCallStats *stats)
+{
+	//最后收到接收方报告的抖动时间
+	float revJitter = linphone_call_stats_get_receiver_interarrival_jitter(stats);
+	//接收者丢失率
+	float rcLossRate = linphone_call_stats_get_receiver_loss_rate(stats);
+	//最后发送的发送方报告的抖动时间
+	float sendJitter = linphone_call_stats_get_sender_interarrival_jitter(stats);
+	//发送方的丢失率
+	float sendLossRate = linphone_call_stats_get_sender_loss_rate(stats);
+
+	// TODO: 在此添加控件通知处理程序代码
+	float volumeSpeaker = linphone_call_get_play_volume(g_newCall);
+	float volumeMic = linphone_call_get_record_volume(g_newCall);
+
+	float volume_db = volumeMic;
+	float frac = (volume_db - UNSIGNIFICANT_VOLUME) / (float)(-UNSIGNIFICANT_VOLUME - 3.0);
+	if (frac < 0) frac = 0;
+	if (frac > 1.0) frac = 1.0;
+	if (frac < gLastValue) {
+		frac = (frac*SMOOTH) + (gLastValue*(1 - SMOOTH));
+	}
+	gLastValue = frac;
+	CString str;
+	float quality = linphone_call_get_current_quality(g_newCall);
+
+	str.Format("通话中:接受方抖动时间[%f],接受方丢失率[%f],发送方抖动时间[%f],发送方丢失率[%f]\,通话音量[%f],通话质量[%f]"
+		, revJitter , rcLossRate ,gLastValue, sendJitter, sendLossRate,quality);
+	//GetDlgItem(IDC_EDIT4)->SetWindowText(str);
+	CLogRecord::WriteRecordToFile(str);
+}
+
 
  //buf 参数:编码标识 例如"G722" 
  //enable : TRUE 启用 FALSE 禁用
@@ -564,7 +600,7 @@ static void new_subscription_requested(LinphoneCore *lc, LinphoneFriend *myfrien
 static int setAudioCode(char* buf, bool enable, int clock_ = -1)
 {
 	bctbx_list_t* codeclist, *elem;
-	codeclist = bctbx_list_copy(linphone_core_get_audio_codecs(g_lc));
+	codeclist = bctbx_list_copy(linphone_core_get_audio_codecs(linphone_get_core()));
 	struct _OrtpPayloadType *pt;
 	if (-1 == clock_)
 	{
@@ -722,7 +758,7 @@ static void UserLogin(CString strID)
 		//记录当前登陆的用户
 		gstrUserID = strID;
 
-		linphone_proxy_ok(g_lc, strAddr.GetBuffer(), strProxy.GetBuffer());
+		linphone_proxy_ok(linphone_get_core(), strAddr.GetBuffer(), strProxy.GetBuffer());
 
 		
 	}
@@ -1072,6 +1108,7 @@ BEGIN_MESSAGE_MAP(CVOICECHATDlg, CDialogEx)
 	ON_BN_CLICKED(IDC_BUTTON4, &CVOICECHATDlg::OnCallEnd)
 	ON_WM_TIMER()
 	ON_WM_COPYDATA()
+	ON_WM_DESTROY()
 END_MESSAGE_MAP()
 
 
@@ -1119,6 +1156,7 @@ static BOOL InitConfig(CString const strPath)
 	gstrWndName = strWndName;
 	CLogRecord::WriteRecordToFile("初始化配置完成!");
 }
+
 BOOL CVOICECHATDlg::OnInitDialog()
 {
 	CDialogEx::OnInitDialog();
@@ -1193,6 +1231,8 @@ BOOL CVOICECHATDlg::OnInitDialog()
 		vtable.notify_presence_received = notify_presence_recv_updated;//朋友 状态通知
 		vtable.new_subscription_requested = new_subscription_requested;
 
+		vtable.call_stats_updated = linphoneCallStatusUpdate;//通话 状态 回调
+
 		CString strConfigPath = CLogRecord::GetAppPath() + "\\config\\voiceConfig.ini";
 		lc = linphone_core_new(&vtable, NULL, NULL, NULL);
 		g_lc = lc;
@@ -1221,7 +1261,7 @@ BOOL CVOICECHATDlg::OnInitDialog()
 			OutputDebugString("no-----\n");
 		}
 		//设置语音编码
-		setDefaultCode();
+		//setDefaultCode();
 
 
 		//返回语音 设备信息
@@ -1250,7 +1290,6 @@ void CVOICECHATDlg::OnSysCommand(UINT nID, LPARAM lParam)
 // 如果向对话框添加最小化按钮，则需要下面的代码
 //  来绘制该图标。  对于使用文档/视图模型的 MFC 应用程序，
 //  这将由框架自动完成。
-
 void CVOICECHATDlg::OnPaint()
 {
 	if (IsIconic())
@@ -1310,7 +1349,7 @@ void CVOICECHATDlg::OnAddFriend()
 	const char *name, *uri;
 	LinphoneAddress* friend_address;
 	if (lf == NULL) {
-		lf = linphone_core_create_friend(linphone_get_core());
+		lf = linphone_core_create_friend(g_lc);
 		// 		if (linphone_get_ui_config_int("use_subscribe_notify", 1) == 1) {
 		// 			show_presence = FALSE;
 		// 			allow_presence = FALSE;
@@ -1376,21 +1415,7 @@ void CVOICECHATDlg::OnTimer(UINT_PTR nIDEvent)
 		{
 			return;
 		}
-		// TODO: 在此添加控件通知处理程序代码
-		float volumeSpeaker = linphone_call_get_play_volume(g_newCall);
-		float volumeMic = linphone_call_get_record_volume(g_newCall);
-
-		float volume_db = volumeMic;
-		float frac = (volume_db - UNSIGNIFICANT_VOLUME) / (float)(-UNSIGNIFICANT_VOLUME - 3.0);
-		if (frac < 0) frac = 0;
-		if (frac > 1.0) frac = 1.0;
-		if (frac < gLastValue) {
-			frac = (frac*SMOOTH) + (gLastValue*(1 - SMOOTH));
-		}
-		gLastValue = frac;
-		CString str;
-		str.Format(("%f"), gLastValue);
-		GetDlgItem(IDC_EDIT4)->SetWindowText(str);
+	
 	}
 	if (100 == nIDEvent)
 	{
@@ -1400,8 +1425,6 @@ void CVOICECHATDlg::OnTimer(UINT_PTR nIDEvent)
 	}
 	CDialogEx::OnTimer(nIDEvent);
 }
-
-
 
 void StringSplit(CString source, CStringArray& dest, char division)
 {
@@ -1480,6 +1503,9 @@ BOOL CVOICECHATDlg::OnCopyData(CWnd* pWnd, COPYDATASTRUCT* pCopyDataStruct)
 						CLogRecord::WriteRecordToFile(strErr);
 					}
 					break;
+				case PRO_EXIT: //软件退出
+					DestroyWindow();
+					break;
 				default:
 					break;
 				}
@@ -1493,4 +1519,18 @@ BOOL CVOICECHATDlg::OnCopyData(CWnd* pWnd, COPYDATASTRUCT* pCopyDataStruct)
 		}
 	}
 	return CDialogEx::OnCopyData(pWnd, pCopyDataStruct);
+}
+
+
+void CVOICECHATDlg::OnDestroy()
+{
+	if (g_lc)
+	{
+		KillTimer(80);
+		KillTimer(100);
+
+		linphone_core_destroy(g_lc);
+	}
+	CDialogEx::OnDestroy();
+	// TODO: 在此处添加消息处理程序代码
 }

@@ -38,4 +38,5 @@ public:
 	afx_msg void OnCallEnd();
 	afx_msg void OnTimer(UINT_PTR nIDEvent);
 	afx_msg BOOL OnCopyData(CWnd* pWnd, COPYDATASTRUCT* pCopyDataStruct);
+	afx_msg void OnDestroy();
 };

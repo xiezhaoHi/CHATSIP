@@ -44,7 +44,8 @@ enum PRO_ENUM
 	PRO_ERR,//错误信息  
 	PRO_CALL_END,  //结束正在进行的通话
 	PRO_AUDIO_DEVICE, //语音设备
-	PRO_AUDIO_CHOOSE //选择语音设备
+	PRO_AUDIO_CHOOSE, //选择语音设备
+	PRO_EXIT //软件退出
 };
 
 //用户状态 
