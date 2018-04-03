@@ -1,0 +1,10 @@
+# This is a comment
+prefix=D:/Qt_project/voice_chat/linphone-desktop/OUTPUT/desktop
+exec_prefix=D:/Qt_project/voice_chat/linphone-desktop/OUTPUT/desktop
+
+Name:  bctoolbox
+Description: A common set of tools used by Belledonne Communication's softwares
+Version: 0.6.0
+Libs: -LD:/Qt_project/voice_chat/linphone-desktop/OUTPUT/desktop/lib -lbctoolbox
+Libs.private:  D:/Qt_project/voice_chat/linphone-desktop/OUTPUT/desktop/lib/mbedtls.lib D:/Qt_project/voice_chat/linphone-desktop/OUTPUT/desktop/lib/mbedx509.lib D:/Qt_project/voice_chat/linphone-desktop/OUTPUT/desktop/lib/mbedcrypto.lib
+Cflags: -ID:/Qt_project/voice_chat/linphone-desktop/OUTPUT/desktop/include

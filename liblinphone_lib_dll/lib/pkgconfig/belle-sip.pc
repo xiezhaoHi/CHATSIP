@@ -1,0 +1,13 @@
+# This is a comment
+prefix=D:/Qt_project/voice_chat/linphone-desktop/OUTPUT/desktop
+exec_prefix=D:/Qt_project/voice_chat/linphone-desktop/OUTPUT/desktop/bin
+includedir=D:/Qt_project/voice_chat/linphone-desktop/OUTPUT/desktop/include
+
+Name: belle-sip 
+Description: A c based implementation of the SIP (RFC 3261)  telephony protocol 
+Requires: bctoolbox
+Requires.private:  z 
+Version: 1.6.3
+Libs: -LD:/Qt_project/voice_chat/linphone-desktop/OUTPUT/desktop/lib -lbellesip
+Libs.private:  -L -lbctoolbox
+Cflags: -ID:/Qt_project/voice_chat/linphone-desktop/OUTPUT/desktop/include 

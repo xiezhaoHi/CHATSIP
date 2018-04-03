@@ -1,0 +1,13 @@
+prefix=D:/Qt_project/voice_chat/linphone-desktop/OUTPUT/desktop
+exec_prefix=D:/Qt_project/voice_chat/linphone-desktop/OUTPUT/desktop
+libdir=lib
+sharedlibdir=lib
+includedir=include
+
+Name: minizip
+Description: Minizip zip file manipulation library
+Version: 2.2.7
+
+Requires:
+Libs: -L${libdir} -L${sharedlibdir} -lz -lminizip
+Cflags: -I${includedir}

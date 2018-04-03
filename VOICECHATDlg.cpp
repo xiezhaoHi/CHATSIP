@@ -299,6 +299,7 @@ void linphone_in_call_view_set_in_call(LinphoneCall *call) {
 	g_newCall = call;
 	float speakerGain = linphone_call_get_speaker_volume_gain(call);
 	float playGain = linphone_call_get_microphone_volume_gain(call);
+	int err = GetLastError();
 	CString strLog;
 	strLog.Format("语音通话,发送方音量增益[%f],接受方音量增益[%f]", speakerGain, playGain);
 	CLogRecord::WriteRecordToFile(strLog);
@@ -306,6 +307,10 @@ void linphone_in_call_view_set_in_call(LinphoneCall *call) {
 	linphone_call_set_speaker_volume_gain(call, (float)gVolum);
 
 	linphone_call_set_microphone_volume_gain(call, (float)gVolum);
+
+	 speakerGain = linphone_call_get_speaker_volume_gain(call);
+	 playGain = linphone_call_get_microphone_volume_gain(call);
+	 err = GetLastError();
 }
 static void linphone_call_updated_by_remote(LinphoneCall *call) {
 	LinphoneCore *lc = linphone_call_get_core(call);
@@ -1261,7 +1266,7 @@ BOOL CVOICECHATDlg::OnInitDialog()
 			OutputDebugString("no-----\n");
 		}
 		//设置语音编码
-		//setDefaultCode();
+		setDefaultCode();
 
 
 		//返回语音 设备信息
