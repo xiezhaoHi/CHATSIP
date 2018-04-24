@@ -46,6 +46,7 @@ static CString gstrCallUserID; //通话的用户ID
 static CMap<CString, LPCTSTR, CString, LPCTSTR>	 gmapUserTOPhone; //用户ID 对应 号码
 static CMap<CString, LPCTSTR, CString, LPCTSTR>  gmapPhoneToUser; //号码 对应 用户ID
 static CMap<CString, LPCTSTR, int, int> gmapUserStatus;//用户对应的状态
+static int gEcode = 0;
 typedef struct deviceStatus //语音设备状态
 {
 	CString strDeviceID; //设备ID
@@ -270,7 +271,7 @@ static void linphone_registration_state_changed(LinphoneCore *lc, LinphoneProxyC
 	default:
 		break;
 	}
-	CLogRecord::WriteRecordToFile(strMsg);
+	CLogRecord::WriteRecordToFile(CString(msg)+"#"+strMsg);
 	//update_registration_status(cfg, rs);
 }
 
@@ -753,6 +754,7 @@ static void UserLogin(CString strID)
 		//1.初始化朋友
 		InitUserFriend();
 
+		CLogRecord::WriteRecordToFile(strPhone);
 
 		//2.登陆
 		CString strAddr;
@@ -1159,7 +1161,14 @@ static BOOL InitConfig(CString const strPath)
 	}
 	gstrWndClsName = strWndClsName;
 	gstrWndName = strWndName;
+
+	memset(buffAddr, 0, MAX_PATH);
+	GetPrivateProfileString("AUDIOECODE", "TYPE", "0"
+		, buffAddr, MAX_PATH, strPath);
+	gEcode = atoi(buffAddr);
+
 	CLogRecord::WriteRecordToFile("初始化配置完成!");
+	return TRUE;
 }
 
 BOOL CVOICECHATDlg::OnInitDialog()
@@ -1204,7 +1213,13 @@ BOOL CVOICECHATDlg::OnInitDialog()
 	
 	gVoiceChatDlg = this;
 	//初始化配置
-	InitConfig(gstrPath);
+	if (!InitConfig(gstrPath))
+	{
+		CString strErr("配置错误,请确认配置文件是否正确配置!");
+		CLogRecord::WriteRecordToFile(strErr);
+		sendErrInfo(strErr);
+		return FALSE;
+	}
 
 	//数据库连接初始化  尝试3次
 	static int threeTime = 3;
@@ -1265,8 +1280,13 @@ BOOL CVOICECHATDlg::OnInitDialog()
 		{
 			OutputDebugString("no-----\n");
 		}
-		//设置语音编码
-		setDefaultCode();
+		//新增:语音编码简单控制
+		if (gEcode == 0)
+		{
+			//设置语音编码
+			setDefaultCode();
+		}
+		
 
 
 		//返回语音 设备信息
